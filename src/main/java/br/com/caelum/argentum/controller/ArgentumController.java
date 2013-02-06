@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import br.com.caelum.argentum.grafico.GeradorDeGrafico;
 import br.com.caelum.argentum.modelo.Candle;
 import br.com.caelum.argentum.modelo.CandlestickFactory;
+import br.com.caelum.argentum.modelo.Negocio;
 import br.com.caelum.argentum.modelo.SerieTemporal;
 
 @Controller
@@ -53,7 +54,10 @@ public class ArgentumController {
 	@RequestMapping(value="/geraGrafico",method=RequestMethod.GET)
 	public  void criaGrafico(@ModelAttribute("sessionForm") GeraGraficoForm form, HttpServletResponse response) throws IOException{
 	
-		List<Candle> candles = new CandlestickFactory().constroiCandles(form.getNegocios());
+		NegociosWS ws = new NegociosWS();
+		List<Negocio> negocios = ws.getNegocios();
+		
+		List<Candle> candles = new CandlestickFactory().constroiCandles(negocios);
 		SerieTemporal serie = new SerieTemporal(candles);
 		
 		GeradorDeGrafico geradorDeGrafico = new GeradorDeGrafico(serie, form.getDias(),candles.size()-1);

@@ -1,17 +1,9 @@
 package br.com.caelum.argentum.controller;
 
-import java.io.StringReader;
-import java.util.List;
-
-import javax.validation.constraints.NotNull;
-	
 import org.hibernate.validator.constraints.NotEmpty;
 
-import br.com.caelum.argentum.modelo.Negocio;
-import br.com.caelum.argentum.reader.LeitorXML;
-
 public class GeraGraficoForm {
-	
+
 	@NotEmpty
 	private String titulo;
 
@@ -20,13 +12,10 @@ public class GeraGraficoForm {
 	private String media;
 
 	private Integer dias;
-	
-	@NotEmpty
-	private String xml;
 
-	private List<Negocio> negocios;
-	
-	
+	// @NotEmpty
+	private String data;
+
 	public String getTitulo() {
 		return titulo;
 	}
@@ -36,7 +25,7 @@ public class GeraGraficoForm {
 	}
 
 	public Integer getDias() {
-		if(dias == null) {
+		if (dias == null) {
 			return 1;
 		}
 		return dias;
@@ -46,7 +35,6 @@ public class GeraGraficoForm {
 		this.dias = dias;
 	}
 
-
 	public void setIndicador(String indicador) {
 		this.indicador = indicador;
 	}
@@ -55,15 +43,6 @@ public class GeraGraficoForm {
 		this.media = media;
 	}
 
-	public void setXml(String xml) {
-		this.xml = xml;
-		this.negocios = new LeitorXML().carrega(new StringReader(xml));
-	}
-
-	public List<Negocio> getNegocios() {
-		return negocios;
-	}
-	
 	public String getIndicador() {
 		return indicador;
 	}
@@ -72,7 +51,12 @@ public class GeraGraficoForm {
 		return media;
 	}
 
-	public String getXml() {
-		return xml;
+	public String getData() {
+		return data;
 	}
+
+	public void setData(String data) {
+		this.data = data;
+	}
+
 }

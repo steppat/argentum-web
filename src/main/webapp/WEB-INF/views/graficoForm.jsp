@@ -34,9 +34,9 @@
 	<form:errors path="dias" cssClass="error" element="div" />
 	<form:input path="dias"  />
 		
-<h2>XML: </h2>
-    <form:errors path="xml"  cssClass="error" element="div"/> <br />
-    <form:textarea path="xml" cols="40" rows="30"/>
+<h2>Data: </h2>
+(Max dois meses atras:)
+    <form:input path="data"/> (dd/MM/yyyy)
 	
 	<br /> <br />
 

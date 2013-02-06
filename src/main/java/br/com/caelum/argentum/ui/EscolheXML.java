@@ -1,9 +1,8 @@
 package br.com.caelum.argentum.ui;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.Reader;
 import java.util.Collections;
 import java.util.List;
 
@@ -27,8 +26,7 @@ public class EscolheXML {
 			int retorno = chooser.showOpenDialog(null);
 			if(retorno == JFileChooser.APPROVE_OPTION) {
 				File file = chooser.getSelectedFile();
-				Reader fonte =	new FileReader(file);
-				List<Negocio> negocios = new LeitorXML().carrega(fonte);
+				List<Negocio> negocios = new LeitorXML().carrega(new FileInputStream(file));
 				return negocios;
 			}
 		} catch (FileNotFoundException e) {

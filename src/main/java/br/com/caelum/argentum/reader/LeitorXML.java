@@ -1,5 +1,6 @@
 package br.com.caelum.argentum.reader;
 
+import java.io.InputStream;
 import java.io.Reader;
 import java.util.List;
 
@@ -10,10 +11,10 @@ import com.thoughtworks.xstream.io.xml.DomDriver;
 
 public class LeitorXML {
 	
-	public List<Negocio> carrega(Reader fonte) {
+	public List<Negocio> carrega(InputStream inputStream) {
 		XStream stream = new XStream(new DomDriver());
 		stream.alias("negocio", Negocio.class);
-		return (List<Negocio>) stream.fromXML(fonte);
+		return (List<Negocio>) stream.fromXML(inputStream);
 		}
 
 }
