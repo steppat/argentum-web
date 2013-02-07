@@ -1,20 +1,28 @@
 package br.com.caelum.argentum.controller;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import org.hibernate.validator.constraints.NotEmpty;
 
 public class GeraGraficoForm {
+
+	private static final SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 
 	@NotEmpty
 	private String titulo;
 
 	@NotEmpty
 	private String indicador;
+	
 	private String media;
-
 	private Integer dias;
 
-	// @NotEmpty
+	@NotEmpty
 	private String data;
+
+	private Date dataFiltro;
 
 	public String getTitulo() {
 		return titulo;
@@ -25,7 +33,7 @@ public class GeraGraficoForm {
 	}
 
 	public Integer getDias() {
-		if (dias == null) {
+		if (dias == null || this.media == null || this.media.isEmpty()) {
 			return 1;
 		}
 		return dias;
@@ -55,8 +63,14 @@ public class GeraGraficoForm {
 		return data;
 	}
 
-	public void setData(String data) {
+	public void setData(String data) throws ParseException {
 		this.data = data;
+		this.dataFiltro = sdf.parse(data);;
 	}
+
+	public Date getDataFiltro() {
+		return dataFiltro;
+	}
+	
 
 }

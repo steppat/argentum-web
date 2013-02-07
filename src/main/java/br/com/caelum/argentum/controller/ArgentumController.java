@@ -55,7 +55,8 @@ public class ArgentumController {
 	public  void criaGrafico(@ModelAttribute("sessionForm") GeraGraficoForm form, HttpServletResponse response) throws IOException{
 	
 		NegociosWS ws = new NegociosWS();
-		List<Negocio> negocios = ws.getNegocios();
+		
+		List<Negocio> negocios = ws.getNegocios(form.getDataFiltro());
 		
 		List<Candle> candles = new CandlestickFactory().constroiCandles(negocios);
 		SerieTemporal serie = new SerieTemporal(candles);

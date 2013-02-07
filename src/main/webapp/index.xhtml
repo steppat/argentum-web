@@ -1,0 +1,50 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://java.sun.com/jsf/core"      
+      xmlns:h="http://java.sun.com/jsf/html">
+
+	<h:head>
+		<title>Argentum Web</title>
+	</h:head>
+
+	<h:body>
+		<h:form  prependId="false">
+			<h:panelGrid columns="3" >
+				<h:outputText value="Título:" />
+				<h:inputText id="titulo" value="#{argentumBean.titulo}"  required="true"/>
+				<h:message for="titulo" />
+				
+				<h:outputText value="Indicador" />
+				<h:selectOneMenu id="indicador" value="#{argentumBean.indicador}" required="true">
+					<f:selectItem itemValue="abertura" itemLabel="Abertura" />
+					<f:selectItem itemValue="fechamento" itemLabel="Fechamento" />
+				</h:selectOneMenu>
+				<h:message for="indicador" />
+				
+				<h:outputText value="Media:"  />
+				<h:selectOneMenu id="media" value="#{argentumBean.media}">
+					<f:selectItem itemValue="" itemLabel="----" />
+					<f:selectItem itemValue="simples" itemLabel="Simples" />
+					<f:selectItem itemValue="ponderada" itemLabel="Ponderada" />
+				</h:selectOneMenu>
+				<h:message for="media" />
+				
+				<h:outputText value="Dias:" />
+				<h:inputText id="dias" value="#{argentumBean.dias}"/>
+				<h:message for="dias" />
+				
+				<h:outputText value="Data"  required="true"/>
+				<h:inputText id="data" value="#{argentumBean.data}" required="true">
+					<f:convertDateTime pattern="dd/MM/yyyy" />				
+				</h:inputText>
+				<h:message for="data" />
+				
+			</h:panelGrid>
+
+			<h:commandButton value="Gera Gráfico" action="#{argentumBean.geraGrafico}" />
+		</h:form>
+		
+		
+    </h:body>
+</html>

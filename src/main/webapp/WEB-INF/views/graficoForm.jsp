@@ -35,7 +35,8 @@
 	<form:input path="dias"  />
 		
 <h2>Data: </h2>
-(Max dois meses atras:)
+(Max seis meses atras:)
+	<form:errors path="data" cssClass="error" element="div" />
     <form:input path="data"/> (dd/MM/yyyy)
 	
 	<br /> <br />

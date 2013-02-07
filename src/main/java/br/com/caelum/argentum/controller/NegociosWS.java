@@ -2,6 +2,8 @@ package br.com.caelum.argentum.controller;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import org.apache.http.HttpResponse;
@@ -17,14 +19,21 @@ public class NegociosWS {
 
 //	private static final String URI_WEBSERVICE = "http://localhost:8080/argentum-ws/negocios";
 	private static final String URI_WEBSERVICE = "http://argentum-ws.cloudfoundry.com/negocios";
+	private static final String QUERY_NAME = "?data=";
+	
+	private static SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 
-	public List<Negocio> getNegocios() {
+	public List<Negocio> getNegocios(Date dataInicial) {
 
 		try {
 			HttpClient client = new DefaultHttpClient();
-			HttpGet request = new HttpGet(URI_WEBSERVICE);
+			String dataFormatada = sdf.format(dataInicial);
+
+			HttpGet request = new HttpGet(URI_WEBSERVICE + QUERY_NAME + dataFormatada);
 			HttpResponse response = client.execute(request);
+
 			InputStream content = response.getEntity().getContent();
+			
 			return new LeitorXML().carrega(content);
 		} catch (ClientProtocolException e) {
 			throw new RuntimeException(e);
