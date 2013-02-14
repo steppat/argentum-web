@@ -1,7 +1,6 @@
 package br.com.caelum.argentum.bean;
 
 import java.io.IOException;
-import java.util.Date;
 import java.util.List;
 
 import javax.faces.bean.ManagedBean;
@@ -25,7 +24,6 @@ public class ArgentumBean {
 	private String indicador;
 	private String media;
 	private Integer dias;
-	private Date data;
 	
 	private List<Negocio> negocios;
 	private CartesianChartModel negociosChartModel;
@@ -33,7 +31,7 @@ public class ArgentumBean {
 	public void geraGrafico() throws IOException {
 		
 		NegociosWS ws = new NegociosWS();
-		this.negocios = ws.getNegocios(data);
+		this.negocios = ws.getNegocios();
 		
 		List<Candle> candles = new CandlestickFactory().constroiCandles(negocios);
 		SerieTemporal serie = new SerieTemporal(candles);
@@ -84,14 +82,6 @@ public class ArgentumBean {
 
 	public void setDias(Integer dias) {
 		this.dias = dias;
-	}
-
-	public Date getData() {
-		return data;
-	}
-
-	public void setData(Date data) {
-		this.data = data;
 	}
 
 	public List<Negocio> getNegocios() {
