@@ -2,49 +2,72 @@
 	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:f="http://java.sun.com/jsf/core"      
-      xmlns:h="http://java.sun.com/jsf/html">
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
 
 	<h:head>
 		<title>Argentum Web</title>
 	</h:head>
 
 	<h:body>
-		<h:form  prependId="false">
-			<h:panelGrid columns="3" >
-				<h:outputText value="Título:" />
-				<h:inputText id="titulo" value="#{argentumBean.titulo}"  required="true"/>
-				<h:message for="titulo" />
-				
-				<h:outputText value="Indicador" />
-				<h:selectOneMenu id="indicador" value="#{argentumBean.indicador}" required="true">
-					<f:selectItem itemValue="abertura" itemLabel="Abertura" />
-					<f:selectItem itemValue="fechamento" itemLabel="Fechamento" />
-				</h:selectOneMenu>
-				<h:message for="indicador" />
-				
-				<h:outputText value="Media:"  />
-				<h:selectOneMenu id="media" value="#{argentumBean.media}">
-					<f:selectItem itemValue="" itemLabel="----" />
-					<f:selectItem itemValue="simples" itemLabel="Simples" />
-					<f:selectItem itemValue="ponderada" itemLabel="Ponderada" />
-				</h:selectOneMenu>
-				<h:message for="media" />
-				
-				<h:outputText value="Dias:" />
-				<h:inputText id="dias" value="#{argentumBean.dias}"/>
-				<h:message for="dias" />
-				
-				<h:outputText value="Data"  required="true"/>
-				<h:inputText id="data" value="#{argentumBean.data}" required="true">
-					<f:convertDateTime pattern="dd/MM/yyyy" />				
-				</h:inputText>
-				<h:message for="data" />
-				
-			</h:panelGrid>
 
-			<h:commandButton value="Gera Gráfico" action="#{argentumBean.geraGrafico}" />
-		</h:form>
+			<p:panel header="Formulário">
+				
+				<h:form  prependId="false">
+					<p:growl />
+					<h:panelGrid  columns="2">
+						<p:outputLabel value="Label:" />
+						<p:inputText id="titulo" value="#{argentumBean.titulo}"  required="true"/>
+						
+						<p:outputLabel value="Indicador:" />
+						<p:selectOneMenu id="indicador" value="#{argentumBean.indicador}" required="true">
+							<f:selectItem itemValue="abertura" itemLabel="Abertura" />
+							<f:selectItem itemValue="fechamento" itemLabel="Fechamento" />
+						</p:selectOneMenu>
+						
+						<p:outputLabel value="Média:" />
+						<p:selectOneMenu id="media" value="#{argentumBean.media}">
+							<f:selectItem itemValue="" itemLabel="-------" />
+							<f:selectItem itemValue="simples" itemLabel="Simples" />
+							<f:selectItem itemValue="ponderada" itemLabel="Ponderada" />
+						</p:selectOneMenu>
+						
+						<p:outputLabel value="Dias:" />
+						<p:inputText id="dias" value="#{argentumBean.dias}"/>
+						
+						</h:panelGrid>
+					<h:commandButton  value="Gera Gráfico" action="#{argentumBean.geraGrafico}" />
+				</h:form>
 		
+			</p:panel>
+			
+			<br />
+			
+			<p:panel header="Negócios">
+			
+				<p:lineChart  value="#{argentumBean.negociosChartModel}"  legendPosition="e"   title="Argentum"  rendered="#{argentumBean.negociosChartModel != null}"  /> 
+				
+				<h:form>
+
+				    <p:dataTable  var="negocio" value="#{argentumBean.negocios}" paginator="true" rows="15"  rendered="#{argentumBean.negocios != null}"  >
+				        <p:column sortBy="#{negocio.preco}" headerText="Preço" >
+				            <h:outputText value="#{negocio.preco}" />
+				        </p:column>
+				
+				        <p:column sortBy="#{negocio.quantidade}" headerText="Quantidade">
+				            <h:outputText value="#{negocio.quantidade}" />
+				        </p:column>
+				
+				        <p:column sortBy="#{negocio.data}" headerText="Data">
+				            <h:outputText value="#{negocio.data.time}" >
+				            		<f:convertDateTime pattern="dd/MM/yyyy" />
+				            </h:outputText>
+				        </p:column>
+				    </p:dataTable>
+				
+				</h:form>
+                    
+			</p:panel>
 		
     </h:body>
 </html>

@@ -1,20 +1,24 @@
-package br.com.caelum.argentum.controller;
+package br.com.caelum.argentum.bean;
 
 import java.io.IOException;
-import java.io.OutputStream;
 import java.util.Date;
 import java.util.List;
 
 import javax.faces.bean.ManagedBean;
-import javax.faces.context.FacesContext;
+import javax.faces.bean.SessionScoped;
+
+import org.primefaces.model.chart.CartesianChartModel;
 
 import br.com.caelum.argentum.grafico.GeradorDeGrafico;
 import br.com.caelum.argentum.modelo.Candle;
 import br.com.caelum.argentum.modelo.CandlestickFactory;
+import br.com.caelum.argentum.modelo.MontadorDeIndicador;
 import br.com.caelum.argentum.modelo.Negocio;
 import br.com.caelum.argentum.modelo.SerieTemporal;
+import br.com.caelum.argentum.ws.NegociosWS;
 
 @ManagedBean
+@SessionScoped
 public class ArgentumBean {
 
 	private String titulo;
@@ -23,26 +27,28 @@ public class ArgentumBean {
 	private Integer dias;
 	private Date data;
 	
+	private List<Negocio> negocios;
+	private CartesianChartModel negociosChartModel;
+	
 	public void geraGrafico() throws IOException {
 		
 		NegociosWS ws = new NegociosWS();
-		
-		List<Negocio> negocios = ws.getNegocios(data);
+		this.negocios = ws.getNegocios(data);
 		
 		List<Candle> candles = new CandlestickFactory().constroiCandles(negocios);
 		SerieTemporal serie = new SerieTemporal(candles);
 		
-		GeradorDeGrafico geradorDeGrafico = new GeradorDeGrafico(serie, getDias(),candles.size()-1);
-		geradorDeGrafico.criaGrafico(titulo);
-		geradorDeGrafico.plotaIndicador(new MontaIndicador(indicador, media, getDias()).toIndicador());
+		GeradorDeGrafico gerador = new GeradorDeGrafico(serie, getDias(), serie.getTotal() - 1);
 		
-		OutputStream stream = FacesContext.getCurrentInstance().getExternalContext().getResponseOutputStream();
-		geradorDeGrafico.salvar(stream);
+		MontadorDeIndicador montador = new MontadorDeIndicador(getIndicador(), getMedia(), getDias());
 		
-//		response.setContentType("image/png");      
-//		response.setHeader("Content-Disposition", "attachment; filename=" + titulo + ".png");
-//		response.flushBuffer();
-		System.out.println(titulo + ", " + indicador + ", " + media + ", " + dias + ", " + data);
+		gerador.plotaIndicador(montador.getIndicador(), getTitulo());
+		
+		this.negociosChartModel = gerador.getNegociosChartModel();
+	}
+	
+	public CartesianChartModel getNegociosChartModel() {
+		return negociosChartModel;
 	}
 
 	public String getTitulo() {
@@ -88,7 +94,7 @@ public class ArgentumBean {
 		this.data = data;
 	}
 
-	
-	
+	public List<Negocio> getNegocios() {
+		return this.negocios;
+	}
 }
-

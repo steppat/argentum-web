@@ -1,7 +1,6 @@
 package br.com.caelum.argentum.reader;
 
 import java.io.InputStream;
-import java.io.Reader;
 import java.util.List;
 
 import br.com.caelum.argentum.modelo.Negocio;

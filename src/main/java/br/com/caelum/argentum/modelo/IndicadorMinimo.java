@@ -1,7 +1,5 @@
-package br.com.caelum.argentum.controller;
+package br.com.caelum.argentum.modelo;
 
-import br.com.caelum.argentum.modelo.Indicador;
-import br.com.caelum.argentum.modelo.SerieTemporal;
 
 public class IndicadorMinimo implements Indicador {
 

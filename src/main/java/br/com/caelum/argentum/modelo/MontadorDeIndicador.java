@@ -1,16 +1,10 @@
-package br.com.caelum.argentum.controller;
+package br.com.caelum.argentum.modelo;
 
 import java.util.HashMap;
 import java.util.Map;
 
-import br.com.caelum.argentum.modelo.Indicador;
-import br.com.caelum.argentum.modelo.IndicadorAbertura;
-import br.com.caelum.argentum.modelo.IndicadorFechamento;
-import br.com.caelum.argentum.modelo.IndicadorMaximo;
-import br.com.caelum.argentum.modelo.MediaMovelPonderada;
-import br.com.caelum.argentum.modelo.MediaMovelSimples;
 
-public class MontaIndicador {
+public class MontadorDeIndicador {
 
 	private String mediaParam;
 	private String indicadorParam;
@@ -25,13 +19,13 @@ public class MontaIndicador {
 		indicadores.put("minimo", new IndicadorMinimo());
 	}
 
-	public MontaIndicador(String indicadorParam, String mediaParam, int dias) {
+	public MontadorDeIndicador(String indicadorParam, String mediaParam, int dias) {
 		this.indicadorParam = indicadorParam;
 		this.mediaParam = mediaParam;
 		this.dias = dias;
 	}
 
-	public Indicador toIndicador() {
+	public Indicador getIndicador() {
 
 		Indicador indicador = indicadores.get(indicadorParam);
 		if(mediaParam != null) {
