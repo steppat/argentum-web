@@ -17,7 +17,7 @@ import br.com.caelum.argentum.modelo.SerieTemporal;
 import br.com.caelum.argentum.ws.NegociosWS;
 
 @ManagedBean
-@SessionScoped
+//@SessionScoped
 public class ArgentumBean {
 
 	private String titulo;
@@ -40,7 +40,7 @@ public class ArgentumBean {
 		
 		MontadorDeIndicador montador = new MontadorDeIndicador(getIndicador(), getMedia(), getDias());
 		
-		gerador.plotaIndicador(montador.getIndicador(), getTitulo());
+		gerador.plotaIndicador(montador.getIndicador());
 		
 		this.negociosChartModel = gerador.getNegociosChartModel();
 	}

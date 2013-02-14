@@ -16,7 +16,7 @@
 				<h:form  prependId="false">
 					<p:growl />
 					<h:panelGrid  columns="2">
-						<p:outputLabel value="Label:" />
+						<p:outputLabel value="Título:" />
 						<p:inputText id="titulo" value="#{argentumBean.titulo}"  required="true"/>
 						
 						<p:outputLabel value="Indicador:" />
@@ -45,7 +45,7 @@
 			
 			<p:panel header="Negócios">
 			
-				<p:lineChart  value="#{argentumBean.negociosChartModel}"  legendPosition="e"   title="Argentum"  rendered="#{argentumBean.negociosChartModel != null}"  /> 
+				<p:lineChart  value="#{argentumBean.negociosChartModel}"  legendPosition="e"   title="#{argentumBean.titulo}"  rendered="#{argentumBean.negociosChartModel != null}"  /> 
 				
 				<h:form>
 

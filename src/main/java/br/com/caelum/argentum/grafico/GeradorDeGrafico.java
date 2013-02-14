@@ -20,9 +20,9 @@ public class GeradorDeGrafico {
 		this.fim = fim;
 	}
 
-	public void plotaIndicador(Indicador indicador, String label) {
+	public void plotaIndicador(Indicador indicador) {
 		
-		ChartSeries chartSerie = new ChartSeries(label);
+		ChartSeries chartSerie = new ChartSeries(indicador.toString());
 		
 		for (int i = comeco; i <= fim; i++) {
 			double valor = indicador.calculaPara(i, serie);
