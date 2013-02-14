@@ -1,7 +1,7 @@
 package br.com.caelum.argentum.grafico;
 
 import org.primefaces.model.chart.CartesianChartModel;
-import org.primefaces.model.chart.ChartSeries;
+import org.primefaces.model.chart.LineChartSeries;
 
 import br.com.caelum.argentum.modelo.Indicador;
 import br.com.caelum.argentum.modelo.SerieTemporal;
@@ -22,7 +22,7 @@ public class GeradorDeGrafico {
 
 	public void plotaIndicador(Indicador indicador) {
 		
-		ChartSeries chartSerie = new ChartSeries(indicador.toString());
+		LineChartSeries chartSerie = new LineChartSeries(indicador.toString());
 		
 		for (int i = comeco; i <= fim; i++) {
 			double valor = indicador.calculaPara(i, serie);
