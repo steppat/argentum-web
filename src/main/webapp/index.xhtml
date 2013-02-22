@@ -21,8 +21,8 @@
 						
 						<p:outputLabel value="Indicador:" />
 						<p:selectOneMenu id="indicador" value="#{argentumBean.indicador}" required="true">
-							<f:selectItem itemValue="abertura" itemLabel="Abertura" />
-							<f:selectItem itemValue="fechamento" itemLabel="Fechamento" />
+							<f:selectItem itemValue="IndicadorAbertura" itemLabel="Abertura" />
+							<f:selectItem itemValue="IndicadorFechamento" itemLabel="Fechamento" />
 						</p:selectOneMenu>
 						
 						<p:outputLabel value="Média:" />
@@ -36,7 +36,7 @@
 						<p:inputText id="dias" value="#{argentumBean.dias}"/>
 						
 						</h:panelGrid>
-					<h:commandButton  value="Gera Gráfico" action="#{argentumBean.geraGrafico}" />
+					<h:commandButton  value="Gera Gráfico" action="#{argentumBean.preparaDados}" />
 				</h:form>
 		
 			</p:panel>

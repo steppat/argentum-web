@@ -1,44 +1,43 @@
 package br.com.caelum.argentum.bean;
 
-import java.io.IOException;
 import java.util.List;
 
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
 
 import org.primefaces.model.chart.CartesianChartModel;
 
-import br.com.caelum.argentum.grafico.GeradorDeGrafico;
+import br.com.caelum.argentum.grafico.GeradorChartModel;
 import br.com.caelum.argentum.modelo.Candle;
 import br.com.caelum.argentum.modelo.CandlestickFactory;
-import br.com.caelum.argentum.modelo.MontadorDeIndicador;
+import br.com.caelum.argentum.modelo.MontadorIndicador;
 import br.com.caelum.argentum.modelo.Negocio;
 import br.com.caelum.argentum.modelo.SerieTemporal;
-import br.com.caelum.argentum.ws.NegociosWS;
+import br.com.caelum.argentum.ws.ClienteWebService;
 
 @ManagedBean
 //@SessionScoped
 public class ArgentumBean {
 
 	private String titulo;
-	private String indicador;
+	private String indicador ="abertura";
 	private String media;
 	private Integer dias;
 	
 	private List<Negocio> negocios;
 	private CartesianChartModel negociosChartModel;
 	
-	public void geraGrafico() throws IOException {
+	
+	public void preparaDados()  {
 		
-		NegociosWS ws = new NegociosWS();
+		ClienteWebService ws = new ClienteWebService();
 		this.negocios = ws.getNegocios();
 		
 		List<Candle> candles = new CandlestickFactory().constroiCandles(negocios);
 		SerieTemporal serie = new SerieTemporal(candles);
 		
-		GeradorDeGrafico gerador = new GeradorDeGrafico(serie, getDias(), serie.getTotal() - 1);
+		GeradorChartModel gerador = new GeradorChartModel(serie, getDias(), serie.getTotal() - 1);
 		
-		MontadorDeIndicador montador = new MontadorDeIndicador(getIndicador(), getMedia(), getDias());
+		MontadorIndicador montador = new MontadorIndicador(getIndicador(), getMedia(), getDias());
 		
 		gerador.plotaIndicador(montador.getIndicador());
 		
